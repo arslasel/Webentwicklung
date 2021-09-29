@@ -41,13 +41,13 @@ console.timeEnd("fiboB")
 /**
  * Aufgabe D
  * Fibonacci Iterativ
+ * Am besten verwendet man für die iterative Methode den BigInt
+ * Zu Beachten ist auch das man für Math.sqrt nicht BigInt verwenden kann. Diesbezüglich ist es nur verwendbar für den Iterativen und nicht für den approximativen ansatz.
  */
 function fiboD(position) {
-    let befor = 0
     let actual = 0
     let next = 1
-    console.log(0)
-    console.log(1)
+    let result = 0
     for (let i = 0; i < position + 1; i++) {
         befor = actual + next
         actuel = next
@@ -55,6 +55,7 @@ function fiboD(position) {
         console.log(actual)
     }
 }
+
 
 /**
  * Aufgabe 5
