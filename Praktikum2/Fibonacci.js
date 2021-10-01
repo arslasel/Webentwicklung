@@ -11,7 +11,9 @@ function fibo(position) {
         return fibo(position - 1) + fibo(position - 2)
     }
 }
-
+fibo(3)
+fibo(10)
+fibo(5)
 
 
 /*
@@ -25,7 +27,9 @@ function fiboB(position) {
     let result = Math.round(g ** position / Math.sqrt(5));
     console.log("Fibonacci von %d ist %d", position, result);
 }
-
+fiboB(4)
+fiboB(10)
+fiboB(30)
 
 /*
     Aufgabe C
@@ -55,6 +59,9 @@ function fiboD(position) {
         console.log(actual)
     }
 }
+fiboD(4)
+fiboD(10)
+fiboD(20)
 
 /**
  * Aufgabe 5
@@ -68,3 +75,6 @@ function fibo5(position) {
     let result = (g ** position - h ** position) / Math.sqrt(5)
     console.log("Fibonacci von %d ist %d", position, result)
 }
+fibo5(30)
+fibo5(20)
+fibo5(10)

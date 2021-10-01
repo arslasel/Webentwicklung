@@ -8,3 +8,7 @@ function isPrime(zahl) {
     }
     return true;
 }
+
+isPrime(3)
+isPrime(10)
+isPrime(155)
