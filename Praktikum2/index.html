@@ -10,6 +10,113 @@
     <title>Praktika</title>
 </head>
 <body>
-
+    <h1>Exercises of praktika 2</h1>
+    <h1>Prime exercise</h1>
+    <pre>
+    <code class="language-javascript">
+        function isPrime(zahl) {
+            let startZahl = zahl - 1;
+            while (startZahl > 1) {
+                if ((zahl % startZahl) == 0) {
+                return false;
+                }
+            startZahl--;
+            }
+        return true;
+        }
+    </code>
+</pre>
+    <p><script>document.write("Ist 13 Prim? "+ isPrime(13))</script></p>
+    <p><script>document.write("Ist 13 Prim? "+ isPrime2(13))</script></p>
+    <p><script>document.write("Die Zahl 15 ist "+ isPrime(15))</script></p>
+    <p><script>document.write("Die Zahl 15 ist "+ isPrime2(15))</script></p>
+    <h1> Fibonacci Exercise (Exercise 4)</h1>
+    <h2>Subexercise a</h2>
+    <pre>
+        <code class="language-javascript">
+            function fibo(position) {
+                if (position < 2) {
+                    return position;
+                   } else {
+                    return fibo(position - 1) + fibo(position - 2)
+                }
+            }
+        </code>
+    </pre>
+    <p><script>document.write("0 with Fibo: "+fibo(0))</script></p>
+    <p><script>document.write("1 with Fibo: "+fibo(1))</script></p>
+    <p><script> document.write("4 with Fibo: "+fibo(4))</script></p>
+    <p><script> document.write("10 with Fibo: "+fibo(10))</script></p>
+    <p><script> document.write("20 with Fibo: "+fibo(20))</script></p>
+    <h2>Subexercise b</h2>
+    <pre>
+        <code class="language-javascript">
+            function fiboB(position) {
+                let g = (1 + Math.sqrt(5)) / 2;
+                let result = Math.round(g ** position / Math.sqrt(5));
+                console.log("Fibonacci von %d ist %d", position, result);
+            }
+        </code>
+    </pre>
+    <p><script>document.write("0 fiboB Fibo method: "+ fiboB(0))</script></p>
+    <p><script>document.write("1 fiboB Fibo method: "+ fiboB(1))</script></p>
+    <p><script> document.write("4 fiboB Fibo method: "+ fiboB(4))</script></p>
+    <p><script> document.write("10 fiboB Fibo method: "+ fiboB(10))</script></p>
+    <p><script> document.write("20 fiboB Fibo method: "+ fiboB(20))</script></p>
+    <h2>Subexercise c</h2>
+    <pre>
+        <code class="language-javascript">
+            console.time("fibo")
+            fibo(30)
+            console.timeEnd("fibo")
+            console.time("fiboB")
+            fiboB(30)
+            console.timeEnd("fiboB")
+        </code>
+    </pre>
+    <h3>Output (Ist in den Developer-Tools unter Console zu finden -> Console.log())</h3>
+    <pre>
+        <code language="language-javascript">
+            fibo 10: 4.5ms
+            fiboB 10: 0.028ms
+            fibo 30: 14.165ms
+            fiboB 30: 0.011ms
+            fibo 50: Geht zu lange
+            fiboB 50: 0.009ms
+        </code>
+    </pre>
+    <h2>Subexercise d</h2>
+    <pre>
+        <code class="language-javascript">
+            function fiboD(position) {
+                let actual = 0
+                let next = 1
+                let result = 0
+                for (let i = 0; i < position + 1; i++) {
+                    befor = actual + next
+                    actuel = next
+                    next = befor
+                    console.log(actual)
+                }
+            }
+            console.log("fib(1000) = " + fibonacciBigInt(1000));
+        </code>
+    </pre>
+    <p>Aufgabe D
+       Fibonacci Iterativ
+       Am besten verwendet man für die iterative Methode den BigInt
+       Zu Beachten ist auch das man für Math.sqrt nicht BigInt verwenden kann. Diesbezüglich ist es nur verwendbar für den Iterativen und nicht für den approximativen ansatz.
+    </p>
+    <h2>Aufgabe 5</h2>
+    <pre>
+        <code class="language-javascript">
+            function fibo5(position) {
+                let g = (1 + Math.sqrt(5)) / 2
+                let h = (1 - Math.sqrt(5)) / 2
+                let result = (g ** position - h ** position) / Math.sqrt(5)
+                console.log("Fibonacci von %d ist %d", position, result)
+            }
+        </code>
+    </pre>
 </body>
 </html>
