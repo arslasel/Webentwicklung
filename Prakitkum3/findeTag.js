@@ -17,20 +17,3 @@ function findTag(text) {
 
 console.log("hallo")
 console.log(findTag("<header>Text</header"))
-
-
-
-/*
-
-mark
-res
-for each zeiche
-    if(<)
-        mark = false
-    if(mark)
-        res += zeiche
-    if(>)
-        mark = false
-
-
-*/
