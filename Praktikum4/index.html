@@ -140,26 +140,29 @@
     </pre>
 
     <p>Aufgabe a und b wird getestet</p>
-    <script>
-        document.write("-------------Zeichencodierung---------------")
-        document.write(scriptOfSample("A", SCRIPTS)) // "Latin"
-        document.write(scriptOfSample("英", SCRIPTS)) // "Han"
-        document.write(scriptOfSample("я", SCRIPTS)) // "Cyrillic"
-        document.write("-------------------ENDE---------------------")
+    <p>
+        <script>
+            document.write("-------------Zeichencodierung---------------")
+            document.write(scriptOfSample("A", SCRIPTS)) // "Latin"
+            document.write(scriptOfSample("英", SCRIPTS)) // "Han"
+            document.write(scriptOfSample("я", SCRIPTS)) // "Cyrillic"
+            document.write("-------------------ENDE---------------------")
 
 
-        document.write("-------------Anzahl Schriftsysteme-----------")
-        document.write(scriptsInString('英国的狗说 "JavaScript", "тяв"'))
-        document.write("-------------------ENDE---------------------")
-    </script>
+            document.write("-------------Anzahl Schriftsysteme-----------")
+            document.write(scriptsInString('英国的狗说 "JavaScript", "тяв"'))
+            document.write("-------------------ENDE---------------------")
+        </script>
+    </p>
     <hr />
 
     <h2>Aufgabe c</h2>
     <p>{Latin: 17, unknown: 4, Cyrillic: 1 }</p>
-    <p> Postfinance ist eine schweizer Webseite, die Frage ist wieso hinter diesem URL Cyrillic Zeichen sind, ist ein Indiz für eine
+    <p> Postfinance ist eine schweizer Webseite, die Frage ist wieso hinter diesem URL Cyrillic Zeichen sind, ist ein
+        Indiz für eine
         Falle.
     </p>
-    
+
     <a href="../index.html">Zurück</a>
 </body>
 <script>hljs.highlightAll()</script>
