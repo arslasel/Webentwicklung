@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js"></script>
+    <script src="https://github.zhaw.ch/pages/bkrt/wbelabs/log.js"></script>
+    <title>Praktikum4</title>
+
+    <script type="text/javascript" src="faktorial.js"></script>
+    <script type="text/javascript" src="schriftsystem.js"></script>
+    <script type="text/javascript" src="scripts.js"></script>
+</head>
+
+<body>
+    <h1>Praktikum 4</h1>
+    <h2>Aufgabe 2</h2>
+    <p>Darstellung von <strong>faktorial.js</strong></p>
+    <pre>
+        <code class="language-javascript">
+            function factorial(count){
+                let isBigInt = typeof count === 'bigint'
+            
+                if(count <= 1){
+                    return count
+                }
+            
+                let result = count
+                const start = isBigInt ? count - BigInt(1) : count - 1
+            
+                for(let i = start; i >= 2; i--){
+                    result *= i
+                }
+            
+                return result
+            }
+            
+            const numbers = [1, 2, 3, 4, 5]
+            const bigIntegers = [1n, 2n, 3n, 10n, 50n]
+            
+            console.log("------------Factorial without Bigint------------")
+            numbers.forEach(it => console.log(factorial(it)))
+            console.log("-----------------------END-----------------------")
+            
+            console.log("---------------Factorial with Bigint-------------")
+            bigIntegers.forEach(it => console.log(factorial(it)))
+            console.log("-----------------------END-----------------------")
+        </code>
+    </pre>
+
+    <h4>Faktorial wird getestet</h4>
+    <script>
+        const numbers = [1, 2, 3, 4, 5]
+        const bigIntegers = [1n, 2n, 3n, 10n, 50n]
+
+        console.log("------------Factorial without Bigint------------")
+        numbers.forEach(it => console.log(factorial(it)))
+        console.log("-----------------------END-----------------------")
+
+        console.log("---------------Factorial with Bigint-------------")
+        bigIntegers.forEach(it => console.log(factorial(it)))
+        console.log("-----------------------END-----------------------")
+    </script>
+    <hr />
+
+    <h2>Aufgabe 3a</h2>
+    <p>Darstellung von <strong>schriftsystem.js</strong></p>
+
+    <pre>
+        <code class="language-javascript">
+            const SCRIPTS = require('./scripts.js')
+
+            require('./scripts.js')
+            console.log(SCRIPTS[0])
+
+
+            function oldAndLiving(scripts){
+            return scripts.filter(it => it.year < 0 && it.living).map(it => it.name)
+            }
+
+            console.log(oldAndLiving(SCRIPTS))
+        </code>
+    </pre>
+
+    <p>Aufgabe 3a wird getestet</p>
+    <script>
+        console.log(oldAndLiving(SCRIPTS))
+    </script>
+    <hr />
+
+    <h2>Aufgabe 3b</h2>
+    <pre>
+        <code class="language-javascript">
+            function numberOfCodesAlternativ({ranges}){
+                return ranges.reduce((current, [from, to]) => current + to - from, 0)
+            }
+        </code>
+    </pre>
+
+    <p>Aufgabe 3b wird getestet</p>
+    <script>
+        console.log(numberOfCodesAlternativ(SCRIPTS[3]))
+    </script>
+    <hr />
+
+    <h2>Aufgabe 3 Schriftsysteme erkennen</h2>
+    <p><strong>Aufgabe a und b</strong></p>
+    <pre>
+        <code class="language-javascript">
+            function scriptOfSample(text, scripts){
+                const codeAt = text.codePointAt(0);
+            
+                const script = scripts.find(({ ranges }) => {
+                    const range = ranges.find(([from, to]) => codeAt >= from && codeAt <= to)
+                    return !!range
+                });
+            
+                return script ? script.name : 'unknown';
+            }
+
+            function scriptsInString(text){
+                let result = {}
+            
+                for (let i = 0; i < text.length; i++) {
+                    const script = scriptOfSample(text[i], SCRIPTS)
+                    if (result.hasOwnProperty(script)){
+                        result[script]++
+                    } 
+                    else {
+                        result[script] = 1
+                    }
+                }
+            
+                return result
+            }
+        </code>
+    </pre>
+
+    <p>Aufgabe a und b wird getestet</p>
+    <script>
+        console.log("-------------Zeichencodierung---------------")
+        console.log(scriptOfSample("A", SCRIPTS)) // "Latin"
+        console.log(scriptOfSample("英", SCRIPTS)) // "Han"
+        console.log(scriptOfSample("я", SCRIPTS)) // "Cyrillic"
+        console.log("-------------------ENDE---------------------")
+
+
+        console.log("-------------Anzahl Schriftsysteme-----------")
+        console.log(scriptsInString('英国的狗说 "JavaScript", "тяв"'))
+        console.log("-------------------ENDE---------------------")
+    </script>
+    <hr />
+
+    <h2>Aufgabe c</h2>
+    <p>{Latin: 17, unknown: 4, Cyrillic: 1 }</p>
+    <p> Postfinance ist eine schweizer Webseite, die Frage ist wieso hinter diesem URL Cyrillic Zeichen sind, ist ein Indiz für eine
+        Falle.
+    </p>
+    
+    <a href="../index.html">Zurück</a>
+</body>
+<script>hljs.highlightAll()</script>
+
+</html>
