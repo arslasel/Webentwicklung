@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js"></script>
+    <script src="https://github.zhaw.ch/pages/bkrt/wbelabs/log.js"></script>
+    <title>Aufgabe 3</title>
+</head>
+
+<body>
+
+    <h1>Aufgabe 3 Funktionen testen</h1>
+
+    <h2>Test findTag.js</h2>
+    <pre>
+        <code class="language-javascript">
+            describe('findTag', function() {
+                let { findTag } = require('../index');
+                let loremIpsum = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque tincidunt elit ipsum, vitae egestas nibh commodo id. Vivamus nec purus faucibus, laoreet nunc a, venenatis velit. In aliquet molestie nunc, sed pharetra turpis semper vel. Praesent hendrerit tortor quis turpis tempor, eget tempor nibh sollicitudin. Mauris auctor diam ut odio vulputate hendrerit. Fusce ultrices nunc a nisl tincidunt elementum. Phasellus et mattis nisi, in malesuada felis. Maecenas id leo ut est sodales euismod at at purus. In blandit imperdiet hendrerit. Donec sed consectetur elit, vitae venenatis orci. Nullam in viverra eros, vitae lobortis purus.';
+            
+                it("Zeigt Tag", function () {
+                    expect(findTag("<header>Text</header")).toEqual("header");
+                    expect(findTag("blabla <br> blabla")).toEqual("br");
+                });
+            
+                it("Zeigt kein Tag", function () {
+                    expect(findTag("Text</header")).toBeUndefined();
+                });
+            });
+        </code>
+    </pre>
+
+    <h2>Test fibonacciSpec</h2>
+    <pre>
+        <code class="language-javascript">
+            describe('fibonacci', function() {
+                const { fibonacci } = require('../index');
+            
+                it('Richtiges Resultat wird augegeben', function() {
+                    expect(fibonacci(0)).toEqual(0);
+                    expect(fibonacci(1)).toEqual(1);
+                    expect(fibonacci(3)).toEqual(2);
+                    expect(fibonacci(4)).toEqual(3);
+                    expect(fibonacci(5)).toEqual(5);
+                    expect(fibonacci(6)).toEqual(8);
+                    expect(fibonacci(7)).toEqual(13);
+                    expect(fibonacci(8)).toEqual(21);
+                    expect(fibonacci(9)).toEqual(34);
+                    expect(fibonacci(10)).toEqual(55);
+                });
+            
+                it('Gibt das richtige Resultat aus n = 20', function() {
+                    expect(fibonacci(20)).toEqual(6765);
+                });
+            
+                it('Gibt das richtige Resultat aus n = 30', function() {
+                    expect(fibonacci(30)).toEqual(832040);
+                });
+            });
+        </code>
+    </pre>
+    <h2>Test fibonacciSpec.js</h2>
+    <pre>
+        <code class="language-javascript">
+            describe('equal', function() {
+                const { equal } = require('../index');
+            
+                it('TRUE wird zurückgegeben', function() {
+                    expect(equal(3, 3)).toBeTrue();
+                    expect(equal(3.1414, 3.1414)).toBeTrue();
+                    expect(equal('arslasel', 'arslasel')).toBeTrue();
+                    expect(equal('ZHAW Zürich', 'ZHAW Zürich')).toBeTrue();
+                    expect(equal(true, true)).toBeTrue();
+                    expect(equal(false, false)).toBeTrue();
+                });
+            
+                it('Objekte werden verglichen, gibt TRUE zurück', function() {
+                    expect(equal({}, {})).toBeTrue();
+                    expect(equal({ test: 5 }, { test: 5  })).toBeTrue();
+                });
+            
+                it('Ungleiche Typen werden verglichen, gibt FALSE zurück', function() {
+                    expect(equal(1, 3)).toBeFalse();
+                    expect(equal('selim', 'arslan')).toBeFalse();
+                    expect(equal(true, false)).toBeFalse();
+                });
+            
+                it('Ungleiche Objekte werden verglichen, gibt FALSE zurück', function() {
+                    expect(equal({}, { test: 1 })).toBeFalse();
+                    expect(equal({ x: 123 }, { y: 567 })).toBeFalse();
+                });
+            });
+        </code>
+    </pre>
+
+    <h2>Used specrunner from jasmine standalone and added test for song title</h2>
+    <iframe style="width: 100%;height: 600px;" src="./FunctionTest_BROWSER/SpecRunner.html" height="200" width="300"
+        title="Iframe Example"></iframe>
+
+    <h2>Fazit</h2>
+    <span>Die Tests funktionieren einwandfrei jedoch funktioniert die equal Funktion noch nicht perfekt -> einge teste
+        schlagen fehl</span>
+</body>
+
+<script>
+</script>
+<script>hljs.highlightAll()</script>
+
+</html>

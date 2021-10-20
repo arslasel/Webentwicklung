@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js"></script>
+    <script src="https://github.zhaw.ch/pages/bkrt/wbelabs/log.js"></script>
+    <title>Aufgabe1</title>
+</head>
+
+<body>
+
+    <h1>Aufgabe + REPL Tests</h1>
+    <div>
+        <span>
+            Wie sind die unterschiedlichen Ergebnisse bei den Aufrufen von f() und fs() zu erklären?
+            <hr>
+            Weil der code "use strict"; dafür sorgt, dass das "this" object undefined ist in Funktionen die mittels
+            function definiert werden
+            <br><br><br><br><br>
+            Warum ist es keine gute Idee, die Funktion F ohne new aufzurufen?
+            <hr>
+            Weil dann je nachdem von wo die Funktion aufgerufen wird das attribut "a" auf dem global oder auf dem
+            modul.exports objekt setzt, und dies ist nur in seltenen Fällen das was man will
+            <br><br><br><br><br>
+            Das Objekt objenthält nur ein Attribut a. Warum kann obj.f() aufgerufen werden?
+            <hr>
+            Weil das Objekt obj mit dem Prototyp vom Objekt {f} erstellt wurde. Mit obj.f() ruft man also die Funktion
+            des genannten Prototyps auf
+
+        </span>
+    </div>
+</body>
+
+<script>
+    // no script needed here
+</script>
+<script>hljs.highlightAll()</script>
+
+</html>
