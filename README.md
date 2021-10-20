@@ -4,4 +4,4 @@ GitHub page is available [here](https://github.zhaw.ch/pages/arslasel/WBE/)
 
 
 Praktikum 5
-Aufgabe1:[here](https://github.zhaw.ch/arslasel/WBE/tree/master/Praktikum5/Aufgabe1.html)
+Aufgabe1:[here](https://github.zhaw.ch/pages/arslasel/WBE/praktikum5/Aufgabe1.html)
