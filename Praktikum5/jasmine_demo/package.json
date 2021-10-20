@@ -1,0 +1,19 @@
+{
+  "name": "jasmine_demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "test",
+    "start": "node ."
+  },
+  "author": "arslasel",
+  "license": "ISC",
+  "devDependencies": {
+    "jasmin": "0.0.2",
+    "jasmine": "^3.10.0"
+  },
+  "dependencies": {
+    "npx": "^10.2.2"
+  }
+}

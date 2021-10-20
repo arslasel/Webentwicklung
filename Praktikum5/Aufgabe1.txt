@@ -1,0 +1,13 @@
+Wie sind die unterschiedlichen Ergebnisse bei den Aufrufen von f() und fs() zu erklären?
+
+Bei fs() wird mit "use strict" die Funktion als undefined deklariert und bei f() nicht. Das this im fs() ist somit undefined.
+Für eine ZUweisung muss man mit call() arbeiten.
+
+• Warum ist es keine gute Idee, die Funktion F ohne new aufzurufen?
+
+Wenn der Funktionsname mit einem Grossbuchstaben anfangt, geht man davon aus, dass es ein Konstruktor ist gemäss Konvetion.
+
+
+• Das Objekt obj enthält nur ein Attribut a. Warum kann obj.f() aufgerufen werden?
+
+Die Funktion f ist gespeichert im Prototyp Objekt. Dadurch kann man mit der Variable obj die Funktion f aufrufen. 

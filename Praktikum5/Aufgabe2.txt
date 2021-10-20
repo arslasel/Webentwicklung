@@ -1,0 +1,4 @@
+Aufgabe2
+
+a.) Dieses Verzeichniss enthält all installierte Packete von package.jason
+
