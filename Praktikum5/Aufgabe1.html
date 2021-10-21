@@ -18,19 +18,18 @@
         <span>
             Wie sind die unterschiedlichen Ergebnisse bei den Aufrufen von f() und fs() zu erklären?
             <hr>
-            Weil der code "use strict"; dafür sorgt, dass das "this" object undefined ist in Funktionen die mittels
-            function definiert werden
+            Bei fs() wird mit "use strict" die Funktion als undefined deklariert und bei f() nicht. Das this im fs() ist somit undefined.
+            Für eine Zuweisung muss man mit call() arbeiten.
             <br><br><br><br><br>
             Warum ist es keine gute Idee, die Funktion F ohne new aufzurufen?
             <hr>
+            Wenn der Funktionsname mit einem Grossbuchstaben anfangt, geht man davon aus, dass es ein Konstruktor ist gemäss Konvention.
             Weil dann je nachdem von wo die Funktion aufgerufen wird das attribut "a" auf dem global oder auf dem
-            modul.exports objekt setzt, und dies ist nur in seltenen Fällen das was man will
+            modul.exports objekt setzt, und dies ist nur in seltenen Fällen das was man will.
             <br><br><br><br><br>
             Das Objekt objenthält nur ein Attribut a. Warum kann obj.f() aufgerufen werden?
             <hr>
-            Weil das Objekt obj mit dem Prototyp vom Objekt {f} erstellt wurde. Mit obj.f() ruft man also die Funktion
-            des genannten Prototyps auf
-
+            Die Funktion f ist gespeichert im Prototyp Objekt. Dadurch kann man mit der Variable obj die Funktion f aufrufen. 
         </span>
     </div>
 </body>
