@@ -15,6 +15,7 @@
 
     <h1>Aufgabe 4 Prototyp</h1>
     <span>Vergleich zwischen Object.create und Object.beget</span>
+    <span>Why Beget? Becuase this has everything to do with the new keyword. In JavaScript, new only works with functions (which are a special type of object). The type of object you get back depends on that function's prototype object</span>
     <br>
     <span>Statt vom prototyp Object sind die Objekte von beget vom Prototyp F (macht Sinn weil der Prototyp F verwendet
         wurde)
@@ -29,8 +30,9 @@
                 } 
             }
             
-            
+            //Object.create kann ein Objekt mit vorgegebenen Prototyp angelegt werden->in diesem Fall mit Funktion
             oc = Object.create( {} ); 
+            //Object.beget kreiert und returned ein neues Objekt. welche nur mit dem new arbeitet und eine Function vom Typ objekt zurückgibt.
             ob = Object.beget( {} );  
             
             log("OC :",oc)
@@ -57,7 +59,7 @@
         }
     }
 
-
+    
     oc = Object.create({});
     ob = Object.beget({});
 
