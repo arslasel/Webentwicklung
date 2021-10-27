@@ -20,3 +20,16 @@ fs.readFile("nexttick.js", () => {
   })
 
 })
+
+/**
+ * Ausgaben-Reihenfolge:
+ * 1. nexttick
+ * 2. immediate
+ * 3. nexttick
+ */
+
+/**
+ * Begründung:
+ * NexttickQueue werden so frühe wie möglich abgearbeitet und ist nicht Teil des Event Loops
+ * daher wird es vor dem immediate ausgeführt
+ */

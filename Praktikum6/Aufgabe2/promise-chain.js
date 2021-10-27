@@ -4,8 +4,8 @@
 //
 
 var promise = new Promise((resolve, reject) => { 
-//	reject()
-//	throw Error('fail')
+	reject()
+	throw Error('fail')
 	resolve()
 })
 

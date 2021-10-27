@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js"></script>
+    <script src="https://github.zhaw.ch/pages/bkrt/wbelabs/log.js"></script>
+    <title>Aufgabe2</title>
+</head>
+
+<body>
+
+    <h1>Aufgabe 2 Asynchroner Code und Promises</h1>
+
+    <h2>Aufgabe naive-async.js</h2>
+    <pre>
+        <code>
+            //
+            //  Naive asynchronous code. This doesn’t work!
+            //
+            let fs = require('fs')
+            let timestamp = new Date().toString()
+            let contents
+
+            fs.writeFile('date.txt', timestamp, () => {
+            
+            	fs.readFile('date.txt', (err, data) => {
+            		if (err) throw err
+            		contents = data
+                
+                
+            		console.log('Comparing the contents')
+            		console.assert(timestamp == contents)
+            	})
+            })
+        </code>
+    </pre>
+
+    <h2>Aufgabe immediate.js</h2>
+    <pre>
+        <code class="language-javascript">
+            //
+            // timeout vs immediate
+            //
+            const fs = require('fs')
+
+            setTimeout(() => {
+            console.log('timeout')
+            }, 0)
+
+            setImmediate(() => {
+            console.log('immediate')
+            })
+
+            fs.readFile("immediate2.js", () => {
+                setTimeout(() => {
+                    console.log('timeout from readFile callback')
+                }, 0)
+                setImmediate(() => {
+                    console.log('immediate from readFile callback')
+                })
+            })
+
+            console.log('script started')
+
+
+            *Ausgabe-Reihenfolge:
+            /**
+            1. script started 
+            2. timeout
+            3. immediate
+            4. immediate from readFile callback
+            5. timeout from readFile callback
+            */
+            
+            /**
+            * Begründung: Gemäss Vorlesung SW6
+            * SetTimeout bei null ist schneller im Stack bei der Verarbeitung wie SetImmediate darum kommst erst 
+            * setTimeOut an die Reihe
+            * In der Funktion wiederrum, ist SetImmediate schnell an der Reihe
+            */
+
+        </code>
+    </pre>
+    <h2>Aufgabe nexttick.js</h2>
+    <pre>
+        <code>
+            const fs = require('fs')
+            const process = require('process')
+
+            fs.readFile("nexttick.js", () => {
+  
+                setTimeout(() => {
+                    console.log('timeout')
+                }, 0)
+  
+                setImmediate(() => {
+                    console.log('immediate')
+                })
+  
+                process.nextTick(() => {
+                    console.log('nexttick')
+                })
+
+            })
+
+            /**
+             * Ausgaben-Reihenfolge:
+             * 1. nexttick
+             * 2. immediate
+             * 3. nexttick
+             */
+
+            /**
+             * Begründung:
+             * NexttickQueue werden so frühe wie möglich abgearbeitet und ist nicht Teil des Event Loops
+             * daher wird es vor dem immediate ausgeführt
+             */
+        </code>
+    </pre>
+
+    <h2>Aufgabe emitter.js</h2>
+    <pre>
+        <code>
+            //
+            //  Example using EventEmitter
+            //
+            const EventEmitter = require('events')
+            const door = new EventEmitter()
+
+            door.on('open', (arg) => {
+              console.log('Door was opened ' + arg)
+            })
+
+            process.nextTick(() => {
+              console.log('next tick')
+              door.emit('open', 'async')
+            })
+
+            door.emit('open', 'sync')
+
+            /**
+             * Ausgaben-Reihefolge
+             * 1. Door was open sync
+             * 2. next tick
+             * 3. Door was opened async
+             */
+
+            /**
+             * Begründung:
+             * Erst werden all Callstack aufgaben abgearbeitet bzw die Synchronenoperationen
+             * Danach kommt das Nexttick zum zug
+             */
+        </code>
+    </pre>
+
+    <h2>Aufgabe promise-wait etc.</h2>
+    <p>
+        Wenn das await vor dem resolveAfter25Seconds abgrufen wird, dann wartet die Methode gesamthaft 4 Sekunden bzw. 2 * 2 Sekunden.
+    </p>
+</body>
+
+<script>
+</script>
+<script>hljs.highlightAll()</script>
+
+</html>
