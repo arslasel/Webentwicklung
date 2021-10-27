@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js"></script>
+    <script src="https://github.zhaw.ch/pages/bkrt/wbelabs/log.js"></script>
+    <title>Aufgabe2</title>
+</head>
+
+<body>
+
+    <h1>Aufgabe 2 Jasmine</h1>
+
+    Sehen Sie sich die Datei package.jsonsowie die ganze Verzeichnisstruktur des Projekts an. Wozu dient das Verzeichnis
+    node_modules?
+    <hr>
+    Der Ordner node_modules wird vom Package manager "npm" verwendet um packages / dependencies lokal zu speichern. (Der
+    Ordner sollte nicht commited werden)
+    <br><br><br><br><br>
+
+    <pre>
+        <code class="language-javascript">
+            const fs = require('fs')
+
+            function csv2jason(filepath, outputFilepath, separator = ',') {
+                const starttime = new Date();
+                let status
+                let content
+
+                try {
+                    status = fs.statSync(filepath)
+                    content = fs.readFileSync(filepath, 'utf-8')
+                } catch (error) {
+                    console.log(error)
+                    return false
+                }
+
+
+                const timeAfterReading = new Date()
+                let tookTime = timeAfterReading - starttime
+
+                console.log('Grösse das Files: ${status.size}')
+                console.log('Datum letzte Veränderung: ${status.mtime}')
+                console.log('Gebrauchte Zeit zum File lesen: ${tookTime} ms')
+
+                let rows = content.split('\n')
+                let regex = new RegExp(`(".*?"|[^"${separator}\\s]+)(?=\\s*${separator}|\\s*$)`, 'g')
+                let columnName = rows.shift().match(regex)
+                let result = []
+
+                console.log('Anzahl Reihen im File sind: ${row.length}')
+
+                for (const row of rows){
+                    let columns = row.split(separator)
+                    let entry = {}
+
+                    for (let s = 0; s < columns.length; s++){
+                        entry[columnName[s]] = columns[s]
+                    }
+
+                    result.push(entry)
+                }
+
+                const json = JSON.stringify(result, null, '\t')
+
+                try {
+                    fs.writeFileSync(outputFilepath, json)
+                } catch (error) {
+                    console.error(error)
+                    return false
+                }
+
+                const endTime = new Date()
+                const timeDiff = endTime - starttime
+                console.log('Zeit für den ganzen Prozess hat : ${timeDiff} mS')
+
+                return true
+                }
+
+                const args = process.argv.slice(2)
+                const inputFilePath = args[0]
+                const outputFilepath = args[1]
+
+                csv2jason(inputFilePath, outputFilepath)
+
+                module.exports = {csv2jason}
+
+        </code>
+    </pre>
+</body>
+
+<script>
+</script>
+<script>hljs.highlightAll()</script>
+
+</html>
