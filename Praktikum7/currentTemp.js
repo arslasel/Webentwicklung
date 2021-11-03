@@ -1,7 +1,7 @@
 var https = require('https');
 let city = process.argv.slice(2)[0]
 
-//The url we want is: 'www.random.org/integers/?num=1&min=1&max=10&col=1&base=10&format=plain&rnd=new'
+
 var options = {
   host: 'wttr.in',
   path: '/' + city + '?format=j1'
