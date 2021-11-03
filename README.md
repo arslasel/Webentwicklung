@@ -29,3 +29,7 @@ Aufgabe 2 : https://github.zhaw.ch/pages/arslasel/WBE/Praktikum6/Aufgabe2/Aufgab
 
 
 Aufgabe 3 : https://github.zhaw.ch/pages/arslasel/WBE/Praktikum6/Aufgabe3/Aufgabe3.html
+
+## Praktikum 7
+
+Aufgabe 3 : https://github.zhaw.ch/pages/arslasel/WBE/Praktikum7/expresso/Aufgabe3.html
