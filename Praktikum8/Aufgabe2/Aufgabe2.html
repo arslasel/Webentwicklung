@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js"></script>
+    <script src="https://github.zhaw.ch/pages/bkrt/wbelabs/log.js"></script>
+    <title>Aufgabe2</title>
+</head>
+
+<body>
+
+    <h1>Aufgabe 2</h1>
+
+    <p>Vier gewinnt</p>
+    <h2>showBoard.js</h2>
+    <pre>
+        <code class="language-javascript">let state = undefined
+
+            function elt(type, attrs, ...children) {
+                let node = document.createElement(type)
+                for (a in attrs) {
+                    node.setAttribute(a, attrs[a])
+                }
+                for (let child of children) {
+                    if (typeof child != 'string') {
+                        node.appendChild(child)
+                    } else {
+                        node.appendChild(document.createTextNode(child))
+                    }
+                }
+                return node
+            }
+            
+            function generateField(rowIndex, fieldIndex) {
+                let childs = []
+                let fieldState = state[rowIndex][fieldIndex]
+            
+                if (fieldState === 'r') {
+                    childs.push(elt('div', { class: 'red piece' }))
+                }
+                if (fieldState === 'b') {
+                    childs.push(elt('div', { class: 'blue piece' }))
+                }
+            
+                return elt('div', { class: 'flexitem field' }, ...childs)
+            }
+            
+            function generateRow(rowIndex) {
+                let fields = []
+            
+                for (let index = 0; index < 7; index++) {
+                    fields.push(generateField(rowIndex, index))
+                }
+            
+                return elt('div', { class: 'flexparent' }, ...fields)
+            }
+            
+            function showBoard() {
+                document.getElementById('board').innerHTML = ''
+                for (let index = 0; index < 6; index++) {
+                    document.getElementById('board').appendChild(generateRow(index))
+                }
+            }
+            function initGame() {
+                state = Array(6)
+                    .fill('placeholder')
+                    .map((el) => Array(7).fill(''))
+                showBoard()
+            }
+            function randomIntFromInterval(min, max) {
+                return Math.floor(Math.random() * (max - min + 1) + min)
+            }
+            function insertRdmPiece() {
+                let rowindex = randomIntFromInterval(0,5)
+                let colindex = randomIntFromInterval(0,6)
+                let piece = randomIntFromInterval(0,2)
+                
+                if(piece === 0){
+                    state[rowindex][colindex] = ""
+                }
+                if(piece === 1){
+                    state[rowindex][colindex] = "r"
+                }
+                if(piece === 2){
+                    state[rowindex][colindex] = "b"
+                }
+            }
+            
+            function gameEvent() {
+                insertRdmPiece()
+                showBoard()
+            }
+            
+            setInterval(() => {
+                gameEvent()
+            }, 1000);
+            
+            setTimeout(() => {
+                initGame()
+            }, 50)
+        </code>
+    </pre>
+
+    <h2>style.css</h2>
+    <pre>
+        <code class="language-css">div {
+            box-sizing: border-box;
+          }
+          
+          .board {
+            width: 84vw;
+            margin: auto;
+            outline: 1px solid black;
+          }
+          
+          .board .field {
+            border: 1px solid black;
+            width: 12vw;
+            height: 12vw;
+          }
+          
+          .board .field:first-child {
+            display: block;
+          }
+          
+          .board .field .piece {
+            width: 10vw;
+            height: 10vw;
+            border-radius: 50%;
+            margin: 1vw;
+          }
+          
+          .board .field .blue {
+            background-color: blue;
+          }
+          
+          .board .field .red {
+            background-color: red;
+          }
+          
+          .flexparent {
+            display: flex;
+            flex-direction: row;
+          }
+          
+          .flexitem {
+            clear: both;
+            flex-grow: 1;
+            margin: 0 !important;
+          }</code>
+    </pre>
+</body>
+
+<script>
+</script>
+<script>hljs.highlightAll()</script>
+
+</html>

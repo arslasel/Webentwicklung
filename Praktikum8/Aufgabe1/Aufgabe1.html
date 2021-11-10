@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js"></script>
+    <script src="https://github.zhaw.ch/pages/bkrt/wbelabs/log.js"></script>
+    <title>Aufgabe1</title>
+</head>
+
+<body>
+
+    <h1>Aufgabe 1</h1>
+
+    <p>Die Funktion Delete und Put ist eingefügt ins index.js</p>
+    <h2>Aufgabe1</h2>
+    <pre>
+        <p>
+            Sehen Sie sich die Ausgabe im Browser-Fenster an. Welchem HTML-Element entspricht der blaue
+            Kreis und welche CSS-Eigenschaften werden für seine Darstellung verwendet? Wie wird erreicht,
+            dass sich die Grösse des Spielfelds an der Grösse des Viewports orientiert?
+        </p>
+        <p>Antwort: class="field" class="blue piece"</p>
+        <p>
+            Entfernen Sie die CSS-Angaben, welche dafür sorgen, dass nur das erste Feld angezeigt wird. Da
+            div ein Blockelement ist, werden die Felder nun untereinander dargestellt.
+        </p>
+        <code class="language-css">
+            /*Man muss den first-child entfernen*/
+            .board .field:first-child {
+                display: inline-block;
+            }
+        </code>
+        <p>
+            Passen Sie das CSS so an, dass zwei Zeilen à sieben Feldern angezeigt werden. Am besten lösen
+            Sie das mit fliessenden Boxen (float). Wenn Sie Flexbox oder CSS-Grid kennen, können Sie auch
+            eine von diesen Varianten verwenden – in diesem einfachen Beispiel sind alle drei Varianten nicht
+            sehr aufwändig.
+        </p>
+        <code class="language-css">
+            .board {
+                width: 84vw;
+                margin: auto;
+                outline: 1px solid black;
+                display: grid;
+                grid-template-columns: auto auto auto auto auto auto auto;
+             }
+        </code>
+
+        <p>Passen Sie das CSS so an, dass zwei Zeilen à sieben Feldern angezeigt werden. Am besten lösen
+            Sie das mit fliessenden Boxen (float). Wenn Sie Flexbox oder CSS-Grid kennen, können Sie auch
+            eine von diesen Varianten verwenden – in diesem einfachen Beispiel sind alle drei Varianten nicht
+            sehr aufwändig.
+        </p>
+        <code>function elt (type, attrs, ...children) {
+            let node = document.createElement(type)
+            for (a in attrs) {
+              node.setAttribute(a, attrs[a])
+            }
+            for (let child of children) {
+              if (typeof child != "string") node.appendChild(child)
+              else node.appendChild(document.createTextNode(child))
+            }
+            return node
+            }
+      
+            for (let index = 0; index < 42; index++) {
+            document.getElementById("cube").appendChild(
+              elt('div',{"class":"field"}))
+            }
+        </code>
+        
+    </pre>
+</body>
+
+<script>
+</script>
+<script>hljs.highlightAll()</script>
+
+</html>
