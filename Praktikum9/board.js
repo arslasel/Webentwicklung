@@ -26,34 +26,36 @@ function showBoard() {
 
     document.getElementById("board").addEventListener("click", (event) => {
         let clickedIndex = event.target.getAttribute('index')
-        console.log("Clicked field " + clickedIndex)
-        clickedColumn = clickedIndex % 7
-        row = 5
-        exit = false
-        do {
-            clickedIndex = clickedColumn + 7 * row
-            if (document.querySelector("div[index='" + (clickedColumn + 7 * row) + "']").hasChildNodes()) {
-                row -= 1
-            } else {
-                exit = true
-                if (lastMoveRed) {
-                    addPiece(clickedIndex, 'blue')
-                    document.getElementById('nextMove').innerHTML = "Next move: RED"
-                    lastMoveRed = false
+        if (clickedIndex != null) {
+            console.log("Clicked field " + clickedIndex)
+            clickedColumn = clickedIndex % 7
+            row = 5
+            exit = false
+            do {
+                clickedIndex = clickedColumn + 7 * row
+                if (document.querySelector("div[index='" + (clickedColumn + 7 * row) + "']").hasChildNodes()) {
+                    row -= 1
                 } else {
-                    addPiece(clickedIndex, 'red')
-                    document.getElementById('nextMove').innerHTML = "Next move: BLUE"
-                    lastMoveRed = true
+                    exit = true
+                    if (lastMoveRed) {
+                        addPiece(clickedIndex, 'blue')
+                        document.getElementById('nextMove').innerHTML = "Next move: RED"
+                        lastMoveRed = false
+                    } else {
+                        addPiece(clickedIndex, 'red')
+                        document.getElementById('nextMove').innerHTML = "Next move: BLUE"
+                        lastMoveRed = true
+                    }
                 }
-            }
-        } while ((!exit) || row < 0)
+            } while ((!exit) || row < 0)
+        }
     })
 }
 
-function reset(){
+function reset() {
     let board = document.getElementById('board')
     board.childNodes.forEach(element => {
-        if(element.hasChildNodes()){
+        if (element.hasChildNodes()) {
             element.firstChild.remove()
         }
     });
