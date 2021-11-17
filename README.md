@@ -43,3 +43,7 @@ Aufgabe 1 : https://github.zhaw.ch/pages/arslasel/WBE/Praktikum8/Aufgabe1/Aufgab
 Aufgabe 2 : https://github.zhaw.ch/pages/arslasel/WBE/Praktikum8/Aufgabe2/Aufgabe2.html
 
 connect4  : https://github.zhaw.ch/pages/arslasel/WBE/Praktikum8/Aufgabe2/connect4.html
+
+## Praktikum 9
+
+Vier Gewinnt : https://github.zhaw.ch/pages/arslasel/WBE/Praktikum9/Aufgabe1.html
