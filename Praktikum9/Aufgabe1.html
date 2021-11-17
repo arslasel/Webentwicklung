@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js"></script>
+    <script src="https://github.zhaw.ch/pages/bkrt/wbelabs/log.js"></script>
+    <title>Praktikum9</title>
+</head>
+
+<body>
+
+    <h1>Aufgabe 1</h1>
+
+    <p>
+        Vier gewinnt bei dem abwechselnd rot oder blau an die Reihe kommt.
+        Mit dem BUtton New Game kann man das spiel neustarten.
+    </p>
+    <h2>board.js</h2>
+    <pre>
+        <code class="language-javascript">
+            let state = Array(6).fill('').map(el => Array(7).fill(''))
+            let lastMoveRed = false;
+            
+            function elt(type, attrs, ...children) {
+                let node = document.createElement(type)
+                for (a in attrs) {
+                    node.setAttribute(a, attrs[a])
+                }
+                for (let child of children) {
+                    if (typeof child != "string") node.appendChild(child)
+                    else node.appendChild(document.createTextNode(child))
+                }
+                return node
+            }
+            
+            function addPiece(index, color) {
+                document.querySelector("div[index='" + index + "']").appendChild(elt('div', { "class": color + " piece" }))
+            }
+            
+            function showBoard() {
+            
+                for (let index = 0; index < 42; index++) {
+                    document.getElementById("board").appendChild(
+                        elt('div', { "class": "field", "index": index }))
+                }
+            
+                document.getElementById("board").addEventListener("click", (event) => {
+                    let clickedIndex = event.target.getAttribute('index')
+                    console.log("Clicked field " + clickedIndex)
+                    clickedColumn = clickedIndex % 7
+                    row = 5
+                    exit = false
+                    do {
+                        clickedIndex = clickedColumn + 7 * row
+                        if (document.querySelector("div[index='" + (clickedColumn + 7 * row) + "']").hasChildNodes()) {
+                            row -= 1
+                        } else {
+                            exit = true
+                            if (lastMoveRed) {
+                                addPiece(clickedIndex, 'blue')
+                                document.getElementById('nextMove').innerHTML = "Next move: RED"
+                                lastMoveRed = false
+                            } else {
+                                addPiece(clickedIndex, 'red')
+                                document.getElementById('nextMove').innerHTML = "Next move: BLUE"
+                                lastMoveRed = true
+                            }
+                        }
+                    } while ((!exit) || row < 0)
+                })
+            }
+            
+            function reset(){
+                let board = document.getElementById('board')
+                board.childNodes.forEach(element => {
+                    if(element.hasChildNodes()){
+                        element.firstChild.remove()
+                    }
+                });
+            }            
+        </code>
+    </pre>
+
+    <h2>style.css</h2>
+    <pre>
+        <code class="language-css">
+            div {
+                box-sizing: border-box;
+              }
+            
+              .board {
+                width: 84vw;
+                margin: auto;
+                outline: 1px solid black;
+                display:grid;
+                grid-template-columns: auto auto auto auto auto auto auto;
+             }
+            
+              .board .field {
+                border: 1px solid black;
+                width: 12vw;
+                height: 12vw;
+                display: none;
+                
+              }
+            
+              .board .field {
+                display: block;
+              }
+            
+              .board .field .piece {
+                width: 10vw;
+                height: 10vw;
+                border-radius: 50%;
+                margin: 1vw;
+                
+              }
+              .board .field .blue {
+                background-color: blue;
+                
+              }
+              .board .field .red {
+                background-color: red;
+              }
+        </code>
+    </pre>
+</body>
+
+<script>
+</script>
+<script>hljs.highlightAll()</script>
+
+</html>
