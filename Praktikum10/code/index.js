@@ -1,149 +1,126 @@
-/*!
- * vary
- * Copyright(c) 2014-2017 Douglas Christopher Wilson
- * MIT Licensed
- */
-
-'use strict'
-
 /**
- * Module exports.
+ *  Webservice mit Express
+ *  WBE-Praktikum
  */
 
-module.exports = vary
-module.exports.append = append
+const { response } = require('express')
+var express = require('express')
+var app = express()
 
-/**
- * RegExp to match field-name in RFC 7230 sec 3.2
- *
- * field-name    = token
- * token         = 1*tchar
- * tchar         = "!" / "#" / "$" / "%" / "&" / "'" / "*"
- *               / "+" / "-" / "." / "^" / "_" / "`" / "|" / "~"
- *               / DIGIT / ALPHA
- *               ; any VCHAR, except delimiters
- */
-
-var FIELD_NAME_REGEXP = /^[!#$%&'*+\-.^_`|~0-9A-Za-z]+$/
-
-/**
- * Append a field to a vary header.
- *
- * @param {String} header
- * @param {String|Array} field
- * @return {String}
- * @public
- */
-
-function append (header, field) {
-  if (typeof header !== 'string') {
-    throw new TypeError('header argument is required')
-  }
-
-  if (!field) {
-    throw new TypeError('field argument is required')
-  }
-
-  // get fields array
-  var fields = !Array.isArray(field)
-    ? parse(String(field))
-    : field
-
-  // assert on invalid field names
-  for (var j = 0; j < fields.length; j++) {
-    if (!FIELD_NAME_REGEXP.test(fields[j])) {
-      throw new TypeError('field argument contains an invalid header name')
-    }
-  }
-
-  // existing, unspecified vary
-  if (header === '*') {
-    return header
-  }
-
-  // enumerate current values
-  var val = header
-  var vals = parse(header.toLowerCase())
-
-  // unspecified vary
-  if (fields.indexOf('*') !== -1 || vals.indexOf('*') !== -1) {
-    return '*'
-  }
-
-  for (var i = 0; i < fields.length; i++) {
-    var fld = fields[i].toLowerCase()
-
-    // append value (case-preserving)
-    if (vals.indexOf(fld) === -1) {
-      vals.push(fld)
-      val = val
-        ? val + ', ' + fields[i]
-        : fields[i]
-    }
-  }
-
-  return val
+//  Fehlerobjekt anlegen
+//
+function error(status, msg) {
+  var err = new Error(msg)
+  err.status = status
+  return err
 }
 
-/**
- * Parse a vary header into an array.
- *
- * @param {String} header
- * @return {Array}
- * @private
- */
-
-function parse (header) {
-  var end = 0
-  var list = []
-  var start = 0
-
-  // gather tokens
-  for (var i = 0, len = header.length; i < len; i++) {
-    switch (header.charCodeAt(i)) {
-      case 0x20: /*   */
-        if (start === end) {
-          start = end = i + 1
-        }
-        break
-      case 0x2c: /* , */
-        list.push(header.substring(start, end))
-        start = end = i + 1
-        break
-      default:
-        end = i + 1
-        break
-    }
+//  Zufällige ID erzeugen, Quelle:
+//  https://stackoverflow.com/questions/6860853/generate-random-string-for-div-id#6860916
+//
+function guidGenerator() {
+  var S4 = function() {
+    return (((1+Math.random())*0x10000)|0).toString(16).substring(1)
   }
-
-  // final token
-  list.push(header.substring(start, end))
-
-  return list
+  return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4())
 }
 
-/**
- * Mark that a request is varied on a header field.
- *
- * @param {Object} res
- * @param {String|Array} field
- * @public
- */
+//  Statische Dateien im Verzeichnis public
+app.use(express.static('public'))
 
-function vary (res, field) {
-  if (!res || !res.getHeader || !res.setHeader) {
-    // quack quack
-    throw new TypeError('res argument is required')
+//  API-Key überprüfen
+// 
+app.use('/api', function(req, res, next){
+  var key = req.query['api-key']
+  
+  // Key fehlt
+  if (!key) { 
+    return next(error(400, 'api key required'))
   }
-
-  // get existing header
-  var val = res.getHeader('Vary') || ''
-  var header = Array.isArray(val)
-    ? val.join(', ')
-    : String(val)
-
-  // set new header
-  if ((val = append(header, field))) {
-    res.setHeader('Vary', val)
+  // Key falsch
+  if (!~apiKeys.indexOf(key)) {
+    return next(error(401, 'invalid api key'))
   }
-}
+  // korrekter Key
+  req.key = key
+  next()
+})
+
+//  JSON-Daten akzeptieren
+app.use(express.json())
+
+//  gültige API-Keys
+var apiKeys = ['wbeweb', 'c4game']
+
+//  unsere tolle in-memory Datenbank :)
+var data = {c4state: {
+  board: [
+    ['', '', '', '', '', '', ''],
+    ['', '', '', '', '', '', ''],
+    ['', '', '', '', '', '', ''],
+    ['', '', '', '', '', '', ''],
+    ['', '', '', '', '', '', ''],
+    ['', '', '', '', '', '', '']
+  ],
+  next: 'b'
+}}
+
+//  GET-Request bearbeiten
+//
+app.get('/api/data/:id', function(req, res, next){
+  var id = req.params.id
+  var result = data[id]
+  if (result) res.send(result)
+  else next()
+})
+
+
+//  POST-Request bearbeiten
+//
+app.post('/api/data', function (req, res, next) {
+  let id = guidGenerator()
+  data[id] = req.body
+  res.set('Access-Control-Allow-Origin','*')
+  res.send({id})
+})
+
+//  DELETE-Request bearbeiten
+//
+app.delete('/api/data/:id', function(req, res, next){
+  var id = req.params.id
+  delete data[id]
+  res.sendStatus(204)
+})
+
+//  PUT-Request bearbeiten
+//
+app.put('/api/data/:id', function(req, res, next){
+  console.log('1')
+  var id = req.params.id
+  if (data[id]) {
+    data[id] = req.body
+    res.send(req.body)
+  }
+  else next()
+})
+
+//  Middleware mit vier Argumenten wird zur Fehlerbehandlung verwendet
+//
+app.use(function(err, req, res, next){
+  res.status(err.status || 500)
+  res.send({ error: err.message })
+})
+
+//  Catch-all: wenn keine vorangehende Middleware geantwortet hat, wird
+//  hier ein 404 (not found) erzeugt
+//
+app.use(function(req, res){
+  res.status(404)
+  res.send({ error: "not found" })
+})
+
+app.listen(3000)
+console.log('Express started on port 3000')
+
+
+
