@@ -54,6 +54,6 @@ Vier Gewinnt : https://github.zhaw.ch/pages/arslasel/WBE/Praktikum9/connect4.htm
 
 Aufgaben im Repo nachschauen
 
-##Praktikum11
+## Praktikum11
 
 Aufgabe 1 : https://github.zhaw.ch/pages/arslasel/WBE/Praktikum11/index.html
