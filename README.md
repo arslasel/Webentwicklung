@@ -57,3 +57,5 @@ Aufgaben im Repo nachschauen
 ## Praktikum11
 
 Aufgabe 1 : https://github.zhaw.ch/pages/arslasel/WBE/Praktikum11/index.html
+
+Aufgabe 2 : https://github.zhaw.ch/pages/arslasel/WBE/Praktikum11/Aufgabe2/index.html
