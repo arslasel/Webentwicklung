@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/default.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js"></script>
     <script src="https://github.zhaw.ch/pages/bkrt/wbelabs/log.js"></script>
-    <script src="../Aufgabe1/renderSJDON.js"></script>
+    <script src="Aufgabe1/renderSJDON.js"></script>
 
     <title>Praktikum 11 Aufgabe 1</title>
 </head>
@@ -42,9 +42,9 @@
             }
     
             //Objecthandler
-            if (typeof(list[i]) === "object"){
-                for (element in list[i]){
-                    root.setAttribute(element, list[i])
+            if (typeof (list[i]) === "object" && !Array.isArray(list[i])){
+                for (item in list[i]){
+                    root.setAttribute(item, list[i][item])
                 }
                 continue
             }

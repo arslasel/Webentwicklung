@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/default.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js"></script>
+    <script src="https://github.zhaw.ch/pages/bkrt/wbelabs/log.js"></script>
+    <script src="../Aufgabe1/renderSJDON.js"></script>
+
+    <script>
+        setTimeout(() => {
+            const element = ["div", { style: "background: salmon" }, ["h1", "Hello World"], ["h2", { style: "text-align:right" }, "from our library"]]
+            renderSJDON(element, document.getElementById("root"))
+        }, 50);
+
+        setTimeout(() => {
+            const gameboard =
+                [
+                    "div",
+                    { class: "board", id: "board" },
+                    [
+                        "div",
+                        { class: "flexparent" },
+                        ["div", { class: "flexitem field", gamecol: "0" }],
+                        ["div", { class: "flexitem field", gamecol: "1" }],
+                        ["div", { class: "flexitem field", gamecol: "2" }],
+                        ["div", { class: "flexitem field", gamecol: "3" }],
+                        ["div", { class: "flexitem field", gamecol: "4" }],
+                        ["div", { class: "flexitem field", gamecol: "5" }],
+                        ["div", { class: "flexitem field", gamecol: "6" }]
+                    ],
+                    [
+                        "div",
+                        { class: "flexparent" },
+                        ["div", { class: "flexitem field", gamecol: "0" }],
+                        ["div", { class: "flexitem field", gamecol: "1" }],
+                        ["div", { class: "flexitem field", gamecol: "2" }],
+                        ["div", { class: "flexitem field", gamecol: "3" }],
+                        ["div", { class: "flexitem field", gamecol: "4" }],
+                        ["div", { class: "flexitem field", gamecol: "5" }],
+                        ["div", { class: "flexitem field", gamecol: "6" }]
+                    ],
+                    [
+                        "div",
+                        { class: "flexparent" },
+                        ["div", { class: "flexitem field", gamecol: "0" }],
+                        ["div", { class: "flexitem field", gamecol: "1" }],
+                        ["div", { class: "flexitem field", gamecol: "2" }],
+                        ["div", { class: "flexitem field", gamecol: "3" }],
+                        ["div", { class: "flexitem field", gamecol: "4" }],
+                        ["div", { class: "flexitem field", gamecol: "5" }],
+                        ["div", { class: "flexitem field", gamecol: "6" }]
+                    ],
+                    [
+                        "div",
+                        { class: "flexparent" },
+                        ["div", { class: "flexitem field", gamecol: "0" }],
+                        ["div", { class: "flexitem field", gamecol: "1" }],
+                        ["div", { class: "flexitem field", gamecol: "2" }],
+                        ["div", { class: "flexitem field", gamecol: "3" }],
+                        ["div", { class: "flexitem field", gamecol: "4" }],
+                        ["div", { class: "flexitem field", gamecol: "5" }],
+                        ["div", { class: "flexitem field", gamecol: "6" }]
+                    ],
+                    [
+                        "div",
+                        { class: "flexparent" },
+                        ["div", { class: "flexitem field", gamecol: "0" }],
+                        ["div", { class: "flexitem field", gamecol: "1" }],
+                        ["div", { class: "flexitem field", gamecol: "2" }],
+                        ["div", { class: "flexitem field", gamecol: "3" }],
+                        ["div", { class: "flexitem field", gamecol: "4" }],
+                        ["div", { class: "flexitem field", gamecol: "5" }],
+                        ["div", { class: "flexitem field", gamecol: "6" }]
+                    ],
+                    [
+                        "div",
+                        { class: "flexparent" },
+                        ["div", { class: "flexitem field", gamecol: "0" }],
+                        ["div", { class: "flexitem field", gamecol: "1" }],
+                        ["div", { class: "flexitem field", gamecol: "2" }],
+                        ["div", { class: "flexitem field", gamecol: "3" }],
+                        ["div", { class: "flexitem field", gamecol: "4" }],
+                        ["div", { class: "flexitem field", gamecol: "5" }],
+                        ["div", { class: "flexitem field", gamecol: "6" }]
+                    ],
+                ]
+            renderSJDON(gameboard, document.getElementById("game"))
+        }, 50);
+    </script>
+
+    <script>hljs.highlightAll()</script>
+    <title>Document</title>
+</head>
+
+<body>
+
+    <h1>Aufgabe 2 SetBoard</h1>
+
+    <pre>
+        <code class="language-javascript">
+            function renderSJDON(element, appRoot) {
+                appRoot.appendChild(generate(element))
+            }
+            
+            
+            function generate(list) {
+                let root = undefined
+            
+                //Müssen durch alle Elemente durchgehen und prüfen was es werden muss
+                for (let i = 0; i < list.length; i++) {
+                    if (i == 0) {
+                        root = document.createElement(list[i])
+                        continue;
+                    }
+                    //Arrayhandler
+                    if (Array.isArray(list[i])) {
+                        let node = generate(list[i])
+                        root.appendChild(node)
+                        continue
+                    }
+            
+                    //Stringhandler
+                    if (typeof (list[i]) === "string") {
+                        let text = document.createTextNode(list[i])
+                        root.appendChild(text)
+                        continue
+                    }
+            
+                    //Objecthandler
+                    if (typeof (list[i]) === "object" && !Array.isArray(list[i])) {
+                        for (item in list[i]) {
+                            root.setAttribute(item, list[i][item])
+                        }
+                        continue
+                    }
+                }
+                return root
+            }
+        </code>
+    </pre>
+
+    <pre>
+        <code class="language-javascript">
+            const gameboard =
+                [
+                    "div",
+                    { class: "board", id: "board" },
+                    [
+                        "div",
+                        { class: "flexparent" },
+                        ["div", { class: "flexitem field", gamecol: "0" }],
+                        ["div", { class: "flexitem field", gamecol: "1" }],
+                        ["div", { class: "flexitem field", gamecol: "2" }],
+                        ["div", { class: "flexitem field", gamecol: "3" }],
+                        ["div", { class: "flexitem field", gamecol: "4" }],
+                        ["div", { class: "flexitem field", gamecol: "5" }],
+                        ["div", { class: "flexitem field", gamecol: "6" }]
+                    ],
+                    [
+                        "div",
+                        { class: "flexparent" },
+                        ["div", { class: "flexitem field", gamecol: "0" }],
+                        ["div", { class: "flexitem field", gamecol: "1" }],
+                        ["div", { class: "flexitem field", gamecol: "2" }],
+                        ["div", { class: "flexitem field", gamecol: "3" }],
+                        ["div", { class: "flexitem field", gamecol: "4" }],
+                        ["div", { class: "flexitem field", gamecol: "5" }],
+                        ["div", { class: "flexitem field", gamecol: "6" }]
+                    ],
+                    [
+                        "div",
+                        { class: "flexparent" },
+                        ["div", { class: "flexitem field", gamecol: "0" }],
+                        ["div", { class: "flexitem field", gamecol: "1" }],
+                        ["div", { class: "flexitem field", gamecol: "2" }],
+                        ["div", { class: "flexitem field", gamecol: "3" }],
+                        ["div", { class: "flexitem field", gamecol: "4" }],
+                        ["div", { class: "flexitem field", gamecol: "5" }],
+                        ["div", { class: "flexitem field", gamecol: "6" }]
+                    ],
+                    [
+                        "div",
+                        { class: "flexparent" },
+                        ["div", { class: "flexitem field", gamecol: "0" }],
+                        ["div", { class: "flexitem field", gamecol: "1" }],
+                        ["div", { class: "flexitem field", gamecol: "2" }],
+                        ["div", { class: "flexitem field", gamecol: "3" }],
+                        ["div", { class: "flexitem field", gamecol: "4" }],
+                        ["div", { class: "flexitem field", gamecol: "5" }],
+                        ["div", { class: "flexitem field", gamecol: "6" }]
+                    ],
+                    [
+                        "div",
+                        { class: "flexparent" },
+                        ["div", { class: "flexitem field", gamecol: "0" }],
+                        ["div", { class: "flexitem field", gamecol: "1" }],
+                        ["div", { class: "flexitem field", gamecol: "2" }],
+                        ["div", { class: "flexitem field", gamecol: "3" }],
+                        ["div", { class: "flexitem field", gamecol: "4" }],
+                        ["div", { class: "flexitem field", gamecol: "5" }],
+                        ["div", { class: "flexitem field", gamecol: "6" }]
+                    ],
+                    [
+                        "div",
+                        { class: "flexparent" },
+                        ["div", { class: "flexitem field", gamecol: "0" }],
+                        ["div", { class: "flexitem field", gamecol: "1" }],
+                        ["div", { class: "flexitem field", gamecol: "2" }],
+                        ["div", { class: "flexitem field", gamecol: "3" }],
+                        ["div", { class: "flexitem field", gamecol: "4" }],
+                        ["div", { class: "flexitem field", gamecol: "5" }],
+                        ["div", { class: "flexitem field", gamecol: "6" }]
+                    ],
+                ]
+            renderSJDON(gameboard, document.getElementById("game"))
+        </code>
+    </pre>
+
+    <hr>
+
+    <h2>Spielbrett wird generiert</h2>
+    <span>LiveBoard anzeigen:</span>
+    <div id="game"></div>
+
+
+
+</body>
+
+</html>
