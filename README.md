@@ -49,3 +49,11 @@ connect4  : https://github.zhaw.ch/pages/arslasel/WBE/Praktikum8/Aufgabe2/connec
 Aufgabe 1 : https://github.zhaw.ch/pages/arslasel/WBE/Praktikum9/Aufgabe1.html
 
 Vier Gewinnt : https://github.zhaw.ch/pages/arslasel/WBE/Praktikum9/connect4.html
+
+## Prakitkum10 
+
+Aufgaben im Repo nachschauen
+
+##Praktikum11
+
+Aufgabe 1 : https://github.zhaw.ch/pages/arslasel/WBE/Praktikum11/index.html
