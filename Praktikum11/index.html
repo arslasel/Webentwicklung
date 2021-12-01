@@ -71,22 +71,23 @@
 
     // Resultat wird in diesem Konstrukt angezeigt
 
-</code></pre>
-    <div id=app>
-        <div>
+    </code></pre>
+    <div id=app></div>
 
-            <script>
+    <script>
 
-                const element = ["div", { style: "background: salmon" },
-                    ["h1", "Hello World"],
-                    ["h2", { style: "text-align:right" }, "from our library"]
-                ]
+        const element = ["div", { style: "background: salmon" },
+            ["h1", "Hello World"],
+            ["h2", { style: "text-align:right" }, "from our library"]
+        ]
 
-                let appRoot = document.getElementById("app")
-                renderSJDON(element, appRoot)
+        let appRoot = document.getElementById("app")
+        renderSJDON(element, appRoot)
 
-            </script>
+    </script>
 </body>
-<script>hljs.highlightAll()</script>
+<script>
+    hljs.highlightAll()
+</script>
 
 </html>
